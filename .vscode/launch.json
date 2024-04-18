@@ -1,60 +1,21 @@
 {
     "version": "0.2.0",
-    "compounds": [
-        {
-            "name": "Run All",
-            "presentation": {
-				"group": "maingroup",
-				"order": 1
-			},
-            "configurations": [
-                "Back End",
-                "Front End"
-            ]
-        }
-    ],
     "configurations": [
         {
-            "name": "Back End",
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build backend",
-            "program": "${workspaceFolder}/SampleApp/BackEnd/bin/Debug/net8.0/BackEnd.dll",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/bin/net8.0-windows/CustomFunctions.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SampleApp/BackEnd",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-                "uriFormat": "%s/swagger"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
-        },
-        {
-            "name": "Front End",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build frontend",
-            "program": "${workspaceFolder}/SampleApp/FrontEnd/bin/Debug/net8.0/FrontEnd.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/SampleApp/FrontEnd",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-                "uriFormat": "%s/"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
+            "cwd": "${workspaceFolder}",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
         },
         {
             "name": ".NET Core Attach",
