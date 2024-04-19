@@ -146,6 +146,9 @@ namespace CustomFunctions
                             {
                                 // open a query with query text queryText on dpts[k]
                                 CustomFunction.PerformQueryAction(queryText, 1, false, false, dpts[k], openQuery, afp.CheckID, afp.CheckHash);
+
+                                // open a query with query text queryText on dp_action
+                                CustomFunction.PerformQueryAction(queryText, 1, false, false, dpt_action, openQuery, afp.CheckID, afp.CheckHash);
                             }
 
 
