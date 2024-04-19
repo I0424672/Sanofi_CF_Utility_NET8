@@ -64,110 +64,54 @@ namespace CustomFunctions
         public object Eval(object ThisObject)
         {
 
+            // add page in current instance (mutiple conditio)
+            ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
+            DataPoint Dpt_action = afp.ActionDataPoint;
+            Subject current_subject = Dpt_action.Record.Subject;
+            int CRFVersionID = current_subject.CRFVersionID;
+            Instance cur_ins = Dpt_action.Record.DataPage.Instance;
+
+            string Tri_str_1 = "custom value";
+            string Tri_str_2 = "custom value";
+            string addform_OID = "formOID";
+            bool blnTrigForm = false;
+            //Supposed oth_dps_1 is logline field, please replace with logline datapoints here
+            DataPoints oth_dps_1 = CustomFunction.FetchAllDataPointsForOIDPath("ath_field_to_trigger_1", "ath_form_OID_1", "ath_folder_OID_1", current_subject);
+            //Supposed oth_dp_2 is another standard field except Dpt_action, please repalce with another required standard datapoint here
+            DataPoint oth_dp_2 = CustomFunction.FetchAllDataPointsForOIDPath("ath_field_to_trigger_2", "ath_form_OID_2", "ath_folder_OID_2", current_subject)[0];
+            
             try
             {
-                /*
-                Developer: [Pavan Kumar Kanchi ICON]
-                Date: [20 JUN 2023]
-                Custom Function: [CF_EX_083_MF_EX_01_EXENDAT]
-                Edit Checks: [EX_083_MF_EX_01_EXENDAT_01, EX_083_MF_EX_01_EXENDAT_02]
-                Short Description: [If 'EXDSNTTK' is not checked, when EXSTDAT is entered in next visit (current folder OID+100 till 5910) then 'EXENDAT' should be entered.)
-                *Applicable for all Follow up Visit]
-                Protocol Requirement : []
-                Modification History: [NA]
-                */
-
-                ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
-                DataPoint dpt_action = afp.ActionDataPoint;
-                Subject current_subject = dpt_action.Record.Subject;
-                bool openQuery = false;
-                string queryText = "Not taken' is not checked and 'End Date' is not entered when next visit Pomalidomide start date reported. Please update the CRF as appropriate.";
-
-
-                Instance inst = dpt_action.Record.DataPage.Instance;
-                string Fld_OID = inst.Folder.OID;
-
-                if ((dpt_action.Field.OID == "EXENDAT" && inst.Folder.OID == "6010") || (dpt_action.Field.OID == "EXSTDAT" && inst.Folder.OID == "110")) return null;
-
-                DataPoints dpts = new DataPoints();
-                DataPoints dpts_Next = new DataPoints();
-
-                if (dpt_action.Field.OID == "EXENDAT")
+                bool blnTrigForm_1 = CheckDataPoint(Dpt_action);
+                bool blnTrigForm_2 = false;
+                bool blnTrigForm_3 = CheckDataPoint(oth_dp_2) && oth_dp_2.Data == Tri_str_2;
+                if (oth_dps_1 != null && oth_dps_1.Count > 0)
                 {
-                    dpts.Add(dpt_action);
-
-                    if (Number.IsValidInteger(Fld_OID))
-
-                        dpts_Next = CustomFunction.FetchAllDataPointsForOIDPath("EXSTDAT", "EX_01", (Convert.ToInt32(Fld_OID) + 100).ToString(), current_subject);
+                    for (int i = 0; i < oth_dps_1.Count; i++)
+                    {
+                        DataPoint oth_dp = oth_dps_1[i];
+                        blnTrigForm_2 = (CheckDataPoint(oth_dp) && (oth_dp.Data == Tri_str_1));
+                        if (blnTrigForm_2)
+                        {
+                            break;
+                        }
+                    }
+                }
+                blnTrigForm = blnTrigForm_1 && blnTrigForm_2 && blnTrigForm_3;
+                if (blnTrigForm)
+                {
+                    AddForm(cur_ins, addform_OID, CRFVersionID);
                 }
                 else
-                {
-                    dpts = CustomFunction.FetchAllDataPointsForOIDPath("EXENDAT", "EX_01", (Convert.ToInt32(Fld_OID) - 100).ToString(), current_subject);
-                    dpts_Next = CustomFunction.FetchAllDataPointsForOIDPath("EXSTDAT", "EX_01", Fld_OID, current_subject);
-
-                }
-
-
-                if (dpts.Count > 0)
-
-                {
-                    bool Ex_st = false;
-
-                    if (dpts_Next.Count > 0)
-                    {
-                        for (int i = 0; i < dpts_Next.Count; i++)
-                        {
-                            if (validate_dp(dpts_Next[i]))
-                            {
-                                Ex_st = true;
-                                break;
-                            }
-                        }
-                    }
-
-
-
-
-                    for (int k = 0; k < dpts.Count; k++)
-                    {
-                        openQuery = false;
-                        if (dpts[k] != null && dpts[k].Active)
-                        {
-                            if (dpts[k].Data == string.Empty && Ex_st)
-                            {
-                                DataPoint dpt_EXDSNTTK = dpts[k].Record.DataPage.MasterRecord.DataPoints.FindByFieldOID("EXDSNTTK");
-                                if (dpt_EXDSNTTK != null && dpt_EXDSNTTK.Active && dpt_EXDSNTTK.Data == "0")
-                                {
-                                    openQuery = true;
-                                }
-                            }
-
-                            if (!dpts[k].IsDataPointLocked)
-                            {
-                                // open a query with query text queryText on dpts[k]
-                                CustomFunction.PerformQueryAction(queryText, 1, false, false, dpts[k], openQuery, afp.CheckID, afp.CheckHash);
-
-                                // open a query with query text queryText on dp_action
-                                CustomFunction.PerformQueryAction(queryText, 1, false, false, dpt_action, openQuery, afp.CheckID, afp.CheckHash);
-                            }
-
-
-                        }
-                    }
-                }
+                    InactiveForm(cur_ins, addform_OID);
             }
             catch
             {
             }
             return null;
-        }
-        //Validate Dp
-        public bool validate_dp(DataPoint Field)
-        {
-            if (Field != null && Field.Active && Field.Data != string.Empty && !Field.IsBitSet(Status.IsNonConformant))
-                return true;
-            else
-                return false;
+
+
+
 
 
 
