@@ -64,56 +64,57 @@ namespace CustomFunctions
         public object Eval(object ThisObject)
         {
 
-            // add page in current instance (mutiple conditio)
-            ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
-            DataPoint Dpt_action = afp.ActionDataPoint;
-            Subject current_subject = Dpt_action.Record.Subject;
-            int CRFVersionID = current_subject.CRFVersionID;
-            Instance cur_ins = Dpt_action.Record.DataPage.Instance;
-
-            string Tri_str_1 = "custom value";
-            string Tri_str_2 = "custom value";
-            string addform_OID = "formOID";
-            bool blnTrigForm = false;
-            //Supposed oth_dps_1 is logline field, please replace with logline datapoints here
-            DataPoints oth_dps_1 = CustomFunction.FetchAllDataPointsForOIDPath("ath_field_to_trigger_1", "ath_form_OID_1", "ath_folder_OID_1", current_subject);
-            //Supposed oth_dp_2 is another standard field except Dpt_action, please repalce with another required standard datapoint here
-            DataPoint oth_dp_2 = CustomFunction.FetchAllDataPointsForOIDPath("ath_field_to_trigger_2", "ath_form_OID_2", "ath_folder_OID_2", current_subject)[0];
-            
+            /*
+        *Edit Checks : EG_144_STD_SF_EG_LR_INTP_EGORRES_01, EG_144_STD_SF_EG_LR_INTP_EGORRES_02
+        *CF Name: CF_EG_144_STD_SF_EG_LR_INTP_EGORRES
+        *Description: If 'INTP_EGORRES'= Abnormal, then 'EGCLSIG' should be entered for at least one EGTEST.
+        *Developed By: Damu Gogula
+        *Date of Development: 04-Feb-2020
+        *Modified By:
+        *Modified Date:
+        */
             try
             {
-                bool blnTrigForm_1 = CheckDataPoint(Dpt_action);
-                bool blnTrigForm_2 = false;
-                bool blnTrigForm_3 = CheckDataPoint(oth_dp_2) && oth_dp_2.Data == Tri_str_2;
-                if (oth_dps_1 != null && oth_dps_1.Count > 0)
+                ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
+                DataPoint dpt_action = afp.ActionDataPoint;
+                string queryText = "Response to 'Investigator Interpretation of the Result or Finding' is Abnormal and 'Does the result meet the definition of an Adverse Event? (If yes, report AE ID.)' is not entered for all the Pre-specified ECG test. Please update the CRF as appropriate.";
+                bool openQuery = false;
+                DataPoint dpt_EGCLSIG = null;
+                Records recs_EG = dpt_action.Record.DataPage.Records;
+                int count = 0;
+                if (recs_EG != null && recs_EG.Count > 0)
                 {
-                    for (int i = 0; i < oth_dps_1.Count; i++)
+                    for (int i = 1; i < recs_EG.Count; i++)
                     {
-                        DataPoint oth_dp = oth_dps_1[i];
-                        blnTrigForm_2 = (CheckDataPoint(oth_dp) && (oth_dp.Data == Tri_str_1));
-                        if (blnTrigForm_2)
+                        dpt_EGCLSIG = null;
+                        if (recs_EG.FindByRecordPosition(i) == null || !recs_EG.FindByRecordPosition(i).Active)
+                            continue;
+                        dpt_EGCLSIG = recs_EG.FindByRecordPosition(i).DataPoints.FindByFieldOID("EGCLSIG");
+
+                        if (validate_dp(dpt_EGCLSIG))
                         {
+                            count = 1;
                             break;
                         }
                     }
                 }
-                blnTrigForm = blnTrigForm_1 && blnTrigForm_2 && blnTrigForm_3;
-                if (blnTrigForm)
-                {
-                    AddForm(cur_ins, addform_OID, CRFVersionID);
-                }
-                else
-                    InactiveForm(cur_ins, addform_OID);
+
+                if (count == 0 && validate_dp(dpt_action) && dpt_action.Data.ToUpper() == "ABNORMAL")
+                    openQuery = true;
+
+                CustomFunction.PerformQueryAction(queryText, 1, false, false, dpt_action, openQuery, afp.CheckID, afp.CheckHash);
             }
             catch
             {
             }
             return null;
-
-
-
-
-
+        }
+        public bool validate_dp(DataPoint field)
+        {
+            if (field != null && field.Active && field.Data != string.Empty)
+                return true;
+            else
+                return false;
 
 
         }
