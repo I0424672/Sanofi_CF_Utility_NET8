@@ -1,0 +1,42 @@
+{
+    "CF_codesnippets": {
+        "prefix": "CF_DSL_CustomDefine_STD",
+        "body": [
+            "   /*",
+            "    @ Classification: Dynamism",
+            "    @ Introduction: when dpt_test is equal to requried value, dpt_action will show different searchlist accordingly ",
+            "    @ Dpt_action: Dpt_action (check action) should be the std field which required to show dyn searchlist",
+            "    @ Note:value_test should be the value which dpt_test should be equal to when dyn searchlist will be triggered in dpt_action; ",
+            "    key_action is a list of keys which dpt_action should be equal to;",
+            "    value_action should be a list of values which dpt_action should be equal to and be connected with keys accordingly;",
+            "    action_OID is the OID of dp_action to locate it as DataPoint;",
+            "    */",
+            "",
+            "    string action_OID = \"xxx\";",
+            "    string[] key_action = { \"key1\", \"key2\", \"key3\", \"key4\", \"key5\" };",
+            "    string[] value_action = { \"value1\", \"value2\", \"value3\", \"value4\", \"value5\" };",
+            "    string value_test = \"value1\";",
+            "",
+            "    DataPoint dpt_action = ((DynamicSearchParams)ThisObject).DataPoint;",
+            "    KeyValueCollection Criterion = new KeyValueCollection();",
+            "    DataPoint dpt_test = dpt_action.Record.DataPoints.FindByFieldOID(action_OID);",
+            "",
+            "    try",
+            "    {",
+            "        if (dpt_test != null && dpt_test.Active && dpt_test.Data != string.Empty && dpt_test.Data.ToUpper() == value_test.ToUpper())",
+            "        {",
+            "            for (int i = 0; i < key_action.Length; i++)",
+            "            {",
+            "                Criterion.Add(new KeyValue(key_action[i], value_action[i]));",
+            "            }",
+            "        }",
+            "    }",
+            "    catch ",
+            "    { ",
+            "    ",
+            "    }",
+            "    return Criterion;"
+        ],
+        "description": "A MyCF template for: Dynamic searchlist - Define the source in CF - Standard"
+    }
+}

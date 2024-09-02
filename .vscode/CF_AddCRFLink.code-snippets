@@ -1,0 +1,38 @@
+{
+    "CF_codesnippets": {
+        "prefix": "CF_AddCRFLink",
+        "body": [
+            "   /*",
+            "    @ Classification: Dynamism",
+            "    @ Introduction: Add CRF link to the form",
+            "    @ Dpt_action: Dpt_action (check action) should be the field to add this link",
+            "    @ Note: The CRF link could be from any existing datapage",
+            "    */",
+            "",
+            "    ActionFunctionParams afp = (ActionFunctionParams)ThisObject;",
+            "    DataPoint Dpt_action = afp.ActionDataPoint;",
+            "    Subject cur_subj = Dpt_action.Record.Subject;",
+            "",
+            "    DataPage dpg_link = null;",
+            "",
+            "    try",
+            "    {",
+            "        dpg_link = cur_subj.Instances.FindByFolderOID(\"FOLDEROID\").DataPages.FindByFormOID(\"FORMOID\");",
+            "        if (Dpt_action != null && dpg_link != null)",
+            "            SetReferenceForm(Dpt_action, dpg_link);",
+            "    }",
+            "    catch",
+            "    {",
+            "    }",
+            "    return null;",
+            "}",
+            "",
+            "// Function to add the CRF link",
+            "public void SetReferenceForm(DataPoint dp, DataPage dpgSource)",
+            "{",
+            "    if (dp != null && dpgSource != null)",
+            "        CustomFunction.PerformCommentAction(\"<core:link text='click here to see the source form.' URL='CRFPage.aspx?DP=\" + dpgSource.ID + \"' />\", dp, true);"
+        ],
+        "description": "A MyCF template for: Add Link - Add CRF link - Other pages in the same study"
+    }
+}

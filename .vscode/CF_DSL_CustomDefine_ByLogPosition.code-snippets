@@ -1,0 +1,43 @@
+{
+    "CF_codesnippets": {
+        "prefix": "CF_DSL_CustomDefine_ByLogPosition",
+        "body": [
+            "   /*",
+            "    @ Classification: Dynamism",
+            "    @ Introduction: dpt_action in different loglines will show different searchlist accordingly",
+            "    @ Dpt_action: Dpt_action (check action) should be the logline field which required to show dyn searchlist    ",
+            "    @ Note:key_action is a list of keys which dpt_action should be equal to;",
+            "    value_action should be a list of values which dpt_action should be equal to and be connected with keys accordingly",
+            "    */",
+            "",
+            "    DataPoint dpt_action = ((DynamicSearchParams)ThisObject).DataPoint;",
+            "    Record cur_rd = dpt_action.Record;",
+            "    KeyValueCollection Criterion = new KeyValueCollection();",
+            "",
+            "    string[] key_action = { \"key1\", \"key2\", \"key3\", \"key4\", \"key5\" };",
+            "    string[] value_action = { \"value1\", \"value2\", \"value3\", \"value4\", \"value5\" };",
+            "",
+            "    try",
+            "    {",
+            "        switch (cur_rd.RecordPosition)",
+            "        {",
+            "            case 1:",
+            "                Criterion.Add(new KeyValue(key_action[0], value_action[0]));",
+            "                break;",
+            "            case 2:",
+            "                Criterion.Add(new KeyValue(key_action[1], value_action[1]));",
+            "                break;",
+            "            case 3:",
+            "                Criterion.Add(new KeyValue(key_action[2], value_action[2]));",
+            "                break;",
+            "        }",
+            "    }",
+            "    catch ",
+            "    {",
+            "        ",
+            "    }",
+            "    return Criterion;"
+        ],
+        "description": "A MyCF template for: Dynamic searchlist - Define the source in CF - Per the recordposition of the logline"
+    }
+}
