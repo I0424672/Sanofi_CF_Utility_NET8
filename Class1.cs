@@ -21,7 +21,7 @@ namespace CustomFunctions
     using Medidata.Core.Objects.Coding;
     #region System Class - Do Not Modify
     using Medidata.CustomFunctions.Debug;
-    using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+    // using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
     /// <summary>
     /// Runs the CustomFunction Development Utility.
