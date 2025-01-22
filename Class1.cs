@@ -64,60 +64,27 @@ namespace CustomFunctions
         public object Eval(object ThisObject)
         {
 
-            /*
-        *Edit Checks : EG_144_STD_SF_EG_LR_INTP_EGORRES_01, EG_144_STD_SF_EG_LR_INTP_EGORRES_02
-        *CF Name: CF_EG_144_STD_SF_EG_LR_INTP_EGORRES
-        *Description: If 'INTP_EGORRES'= Abnormal, then 'EGCLSIG' should be entered for at least one EGTEST.
-        *Developed By: Damu Gogula
-        *Date of Development: 04-Feb-2020
-        *Modified By:
-        *Modified Date:
-        */
+
+            *
+            @ Classification: xxxx (Edit Check / Derivation / Dynamism)
+            @ Introduction: RAVE custom function template
+            @ Dpt_action: xxxx
+            @ Note: xxxx
+            */
             try
             {
-                ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
-                DataPoint dpt_action = afp.ActionDataPoint;
-                string queryText = "Response to 'Investigator Interpretation of the Result or Finding' is Abnormal and 'Does the result meet the definition of an Adverse Event? (If yes, report AE ID.)' is not entered for all the Pre-specified ECG test. Please update the CRF as appropriate.";
-                bool openQuery = false;
-                DataPoint dpt_EGCLSIG = null;
-                Records recs_EG = dpt_action.Record.DataPage.Records;
-                int count = 0;
-                if (recs_EG != null && recs_EG.Count > 0)
-                {
-                    for (int i = 1; i < recs_EG.Count; i++)
-                    {
-                        dpt_EGCLSIG = null;
-                        if (recs_EG.FindByRecordPosition(i) == null || !recs_EG.FindByRecordPosition(i).Active)
-                            continue;
-                        dpt_EGCLSIG = recs_EG.FindByRecordPosition(i).DataPoints.FindByFieldOID("EGCLSIG");
-
-                        if (validate_dp(dpt_EGCLSIG))
-                        {
-                            count = 1;
-                            break;
-                        }
-                    }
-                }
-
-                if (count == 0 && validate_dp(dpt_action) && dpt_action.Data.ToUpper() == "ABNORMAL")
-                    openQuery = true;
-
-                CustomFunction.PerformQueryAction(queryText, 1, false, false, dpt_action, openQuery, afp.CheckID, afp.CheckHash);
+                ActionFunctionParams afp = (ActionFunctionParams) ThisObject;
+                DataPoint Dpt_action = afp.ActionDataPoint;
+                Subject current_subject = Dpt_action.Record.Subject;
+            
+                // wite main CF code below
+            
             }
             catch
             {
             }
             return null;
-        }
-        public bool validate_dp(DataPoint field)
-        {
-            if (field != null && field.Active && field.Data != string.Empty)
-                return true;
-            else
-                return false;
-
 
         }
-
     }
 }
