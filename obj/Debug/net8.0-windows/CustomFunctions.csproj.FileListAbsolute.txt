@@ -1,3 +1,0 @@
-/workspaces/dotnet-codespaces/obj/Debug/net8.0-windows/CustomFunctions.csproj.AssemblyReference.cache
-/workspaces/dotnet-codespaces/obj/Debug/net8.0-windows/CustomFunctions.GeneratedMSBuildEditorConfig.editorconfig
-/workspaces/dotnet-codespaces/obj/Debug/net8.0-windows/CustomFunctions.csproj.CoreCompileInputs.cache
