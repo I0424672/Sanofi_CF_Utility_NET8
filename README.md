@@ -14,8 +14,9 @@ Once the Codespace is ready, you can start using the utility as per the instruct
 
 The repository contains the following key directories:
 
+- `bin`: This directory contains core Medidata CF utility references for auto-code completion.
 - `.cf`: This directory contains the basic and complex CF programming cases for copilot to learn.
-- `.vscode`: Includes settings and extensions for Visual Studio Code to enhance the development experience.
+- `.vscode`: This directory contains the embeded specific CF codesnipts.
 - `.devcontainer`: Contains configuration files for setting up the development container environment.
 
 ## Contact
