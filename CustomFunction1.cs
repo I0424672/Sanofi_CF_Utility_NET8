@@ -65,7 +65,7 @@ namespace CustomFunctions
         {
 
 
-            *
+            /*
             @ Classification: xxxx (Edit Check / Derivation / Dynamism)
             @ Introduction: RAVE custom function template
             @ Dpt_action: xxxx
