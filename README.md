@@ -2,22 +2,22 @@
 
 ## How to Use the Utility
 
-You can open the repository with Codespace by following these steps:
-1. Navigate to the repository on GitHub.
+You can open the repository with Github Codespace by following these steps:
+1. Navigate to the repository on [GitHub](https://github.com/I0424672/Sanofi_CF_Utility_NET8).
 2. Click on the "Code" button.
 3. Select "Open with Codespaces".
 4. Wait for the Codespace to initialize and open.
 
-Once the Codespace is ready, you can start using the utility as per the instructions provided in the repository.
+Once the Codespace is ready, you can start using the utility for CF programming in the repository.
 
 ## Repository Structure
 
 The repository contains the following key directories:
 
-- `bin`: This directory contains core Medidata CF utility references for auto-code completion.
+- `.devcontainer`: Contains configuration files for setting up the development container environment for CF programming.
 - `.mycf`: This directory contains the basic and complex CF programming cases for copilot to learn.
 - `.vscode`: This directory contains the embeded specific CF codesnipts.
-- `.devcontainer`: Contains configuration files for setting up the development container environment.
+- `bin`: This directory contains core Medidata CF utility references for auto-code completion.
 
 ## Contact
 
