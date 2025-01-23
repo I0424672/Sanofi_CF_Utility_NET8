@@ -19,7 +19,7 @@
             ],
             "settings": {
                 "workbench.colorTheme": "Default Light+",
-                "editor.stickyScroll.enabled": false,
+                "editor.stickyScroll.enabled": false
             }
         }
     },
