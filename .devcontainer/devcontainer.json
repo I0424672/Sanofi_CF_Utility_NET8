@@ -23,7 +23,7 @@
             }
         }
     },
-    "postCreateCommand": "dotnet restore && echo print 'welcome'",
+    "postCreateCommand": "dotnet restore && echo 'welcome to Sanofi CF utility'",
     "hostRequirements": {
         "memory": "8gb",
         "cpus": 4
@@ -31,5 +31,5 @@
     "remoteEnv": {
         "DOTNET_MULTILEVEL_LOOKUP": "0",
         "TARGET": "net8.0"
-    },
+    }
 }
