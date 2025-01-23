@@ -18,7 +18,8 @@
                 "ms-dotnetools.csharp"
             ],
             "settings": {
-                "workbench.colorTheme": "Default Light+"
+                "workbench.colorTheme": "Default Light+",
+                "editor.stickyScroll.enabled": false,
             }
         }
     },
