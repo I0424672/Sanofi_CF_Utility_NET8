@@ -483,4 +483,4 @@ $RECYCLE.BIN/
 .azure
 
 # CF coding files
-*.cs
+CustomFunction1.cs
