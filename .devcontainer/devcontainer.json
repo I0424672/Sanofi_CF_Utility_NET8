@@ -23,7 +23,7 @@
             }
         }
     },
-    "postCreateCommand": "dotnet restore && echo 'welcome to Sanofi CF utility'",
+    "postCreateCommand": "dotnet restore && git checkout --detach",
     "hostRequirements": {
         "memory": "8gb",
         "cpus": 4
