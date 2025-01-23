@@ -1,5 +1,5 @@
 {
-    "name": ".NET in Codespaces",
+    "name": "Sanofi CF Utility",
     "image": "mcr.microsoft.com/dotnet/sdk:8.0",
     "features": {
         "ghcr.io/devcontainers/features/dotnet:2": {
@@ -23,10 +23,6 @@
             }
         }
     },
-    "forwardPorts": [
-        8080,
-        8081
-    ],
     "postCreateCommand": "echo 'hello to Sanofi Utility' && cd ./SampleApp && dotnet restore",
     "hostRequirements": {
         "memory": "8gb",
@@ -36,14 +32,4 @@
         "DOTNET_MULTILEVEL_LOOKUP": "0",
         "TARGET": "net8.0"
     },
-    "portsAttributes": {
-        "8080": {
-            "label": "Weather API",
-            "onAutoForward": "notify"
-        },
-        "8081": {
-            "label": "Weather Front End",
-            "onAutoForward": "notify"
-        }
-    }
 }
