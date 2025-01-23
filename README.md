@@ -8,6 +8,7 @@ You can open the repository with Github Codespace by following these steps:
 3. Select "Open with Codespaces".
 4. Wait for the Codespace to initialize and open.
 
+> **Note:** The first time initial build will need several minutes.
 Once the Codespace is ready, you can start using the utility for CF programming in the repository.
 
 ## Repository Structure
