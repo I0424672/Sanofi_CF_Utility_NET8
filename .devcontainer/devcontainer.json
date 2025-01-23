@@ -23,7 +23,7 @@
             }
         }
     },
-    "postCreateCommand": "echo 'hello to Sanofi Utility' && cd ./SampleApp && dotnet restore",
+    "postCreateCommand": "dotnet restore && echo print 'welcome'",
     "hostRequirements": {
         "memory": "8gb",
         "cpus": 4
