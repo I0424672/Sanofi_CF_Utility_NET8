@@ -26,7 +26,7 @@
     "postCreateCommand": "dotnet restore && git checkout --detach",
     "hostRequirements": {
         "memory": "8gb",
-        "cpus": 4
+        "cpus": 2
     },
     "remoteEnv": {
         "DOTNET_MULTILEVEL_LOOKUP": "0",
