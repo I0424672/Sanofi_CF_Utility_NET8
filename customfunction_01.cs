@@ -13,7 +13,7 @@ using System.Configuration;
 using System.IO;
 
 
-
+// For copilot, to only use Medidata.Core.Objects and System. Some example are put in Basic Function.cs and Public Function.cs in cf.
 namespace CustomFunctions
 {
     using System.Collections.Generic;
