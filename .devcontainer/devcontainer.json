@@ -15,10 +15,11 @@
                 "GitHub.vscode-github-actions",
                 "ms-dotnettools.vscode-dotnet-runtime",
                 "ms-dotnettools.csdevkit",
-                "ms-dotnetools.csharp"
+                "ms-dotnetools.csharp",
+                "natqe.reload"
             ],
             "settings": {
-                "workbench.colorTheme": "Default Light+",
+                "workbench.colorTheme": "Dark Modern",
                 "editor.stickyScroll.enabled": false
             }
         }
