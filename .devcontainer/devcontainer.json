@@ -1,6 +1,7 @@
 {
     "name": "Sanofi CF Utility",
     "image": "mcr.microsoft.com/dotnet/sdk:8.0",
+    "postCreateCommand": "code README.md",
     "features": {
         "ghcr.io/devcontainers/features/dotnet:2": {
             "version": "none",
