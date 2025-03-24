@@ -19,7 +19,7 @@
                 "natqe.reload"
             ],
             "settings": {
-                "workbench.colorTheme": "vscode.theme-defaults",
+                "workbench.colorTheme": "Visual Studio Light",
                 "editor.stickyScroll.enabled": false
             }
         }
