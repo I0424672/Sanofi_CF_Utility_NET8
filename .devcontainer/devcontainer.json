@@ -19,7 +19,7 @@
                 "natqe.reload"
             ],
             "settings": {
-                "workbench.colorTheme": "Dark Modern",
+                "workbench.colorTheme": "vscode.theme-defaults",
                 "editor.stickyScroll.enabled": false
             }
         }
