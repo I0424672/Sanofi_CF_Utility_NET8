@@ -17,10 +17,7 @@
                 "ms-dotnettools.csdevkit",
                 "ms-dotnetools.csharp",
                 "natqe.reload"
-            ],
-            "settings": {
-                "editor.stickyScroll.enabled": false
-            }
+            ]
         }
     },
     "postCreateCommand": "dotnet restore",
