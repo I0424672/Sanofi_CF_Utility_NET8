@@ -23,7 +23,7 @@
             }
         }
     },
-    "postCreateCommand": "dotnet restore && git checkout --detach",
+    "postCreateCommand": "dotnet restore",
     "hostRequirements": {
         "memory": "8gb",
         "cpus": 4
