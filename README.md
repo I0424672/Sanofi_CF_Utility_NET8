@@ -8,7 +8,7 @@ You can open the repository with Github Codespace by following these steps:
 3. Select "Create a codespace on main" by icon `+` from Codespaces tab.
 4. Wait for the Codespace to initialize and open.
 
-> **Note:** The first time you open the Codespace, it may take several minutes (3-5 mins) to initialize. Once the Codespace is ready, you can start using the `customfunction_xx.cs` for CF programming in the repository.
+> **Note:** The first time you open the Codespace, it may take several minutes (2-3 mins) to initialize. Once the Codespace is ready, you can start using the `customfunction_xx.cs` for CF programming in the repository.
 
 ## Repository Structure
 
