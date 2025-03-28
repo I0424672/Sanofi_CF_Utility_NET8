@@ -21,7 +21,5 @@ The repository contains the following key directories:
 
 ## Contact
 
-For any questions or support, please contact: 
-
-[lee1.li@sanofi.com](mailto:lee1.li@sanofi.com), [jason.qi@sanofi.com](mailto:jason.qi@sanofi.com) or [stella.tham@sanofi.com](mailto:Stella.Tham@sanofi.com)
+For any questions or support, please contact: [lee1.li@sanofi.com](mailto:lee1.li@sanofi.com), [jason.qi@sanofi.com](mailto:jason.qi@sanofi.com) or [stella.tham@sanofi.com](mailto:Stella.Tham@sanofi.com)
 
