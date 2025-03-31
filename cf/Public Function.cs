@@ -13,7 +13,7 @@ using System.Configuration;
 using System.IO;
 
 
-namespace CustomFunctions
+namespace CustomFunctions.cf
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -24,8 +24,15 @@ namespace CustomFunctions
     using static System.Windows.Forms.VisualStyles.VisualStyleElement;
     public class BasicFunction
     {
+
+        /// <summary>
+        /// Below list all common used functions in custom function programming for copilot to learn. 
+        /// The code is not complete, but it is enough for copilot to learn the basic programming functions in C#.
+        /// </summary>
+
         public static object Eval(object ThisObject)
         {
+
             try
             {
                 ActionFunctionParams afp = (ActionFunctionParams)ThisObject;

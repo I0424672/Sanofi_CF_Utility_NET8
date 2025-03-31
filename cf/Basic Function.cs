@@ -13,7 +13,7 @@ using System.Configuration;
 using System.IO;
 
 
-namespace CustomFunctions
+namespace CustomFunctions.cf
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -26,7 +26,10 @@ namespace CustomFunctions
     {
         public static object Eval(object ThisObject)
         {
-            
+            /// <summary>
+            /// Below list all basic programming functions in C#. It can be used for copilot to learn custom function programming, which is from c#.
+            /// The code is not complete, but it is enough for copilot to learn the basic programming functions in C#.
+            /// </summary>
             try
             {
                 ActionFunctionParams afp = (ActionFunctionParams)ThisObject;
@@ -41,7 +44,6 @@ namespace CustomFunctions
                 // fetch the current logline from datapoint dp_action
                 Record current_logline = dp_action.Record;
 
-                
 
                 // find the datapoint "TEST" on the same logline with dp_action
                 DataPoint dp_TEST = dp_action.Record.DataPoints.FindByFieldOID("TEST");
@@ -71,7 +73,6 @@ namespace CustomFunctions
                 DataPoints dps_VISDATs_SV_01_110 = CustomFunction.FetchAllDataPointsForOIDPath("VISDAT", "SV_01", "110", current_subject, false);
 
 
-
                 //rename instance current_ins by adding "XX" as suffix
                 string target_foldername_suffix = "XX";
                 if (current_ins != null && current_ins.Active)
@@ -88,8 +89,6 @@ namespace CustomFunctions
                 if (current_datapage != null && current_datapage.Active)
                     current_datapage.Name = new_formname;
 
-                
-
                 //merge matrix "MTX" in subject current_subject
                 int CRFVersionID = dp_action.Record.Subject.CRFVersionID;
                 Matrix target_MTX = Matrix.FetchByOID("MTX", CRFVersionID);
@@ -105,17 +104,14 @@ namespace CustomFunctions
                 if (current_loglinenumbder_currentdatapage <= 5)
                 {
                     for (int i = current_loglinenumbder_currentdatapage; i <= 5; i++)
-                    current_datapage.AddLogRecord();
+                        current_datapage.AddLogRecord();
                 }
-                
 
                 //open query with query text = "querytext" on datapoint dp_action, 
                 CustomFunction.PerformQueryAction("querytext", 1, false, false, dp_action, true, afp.CheckID, afp.CheckHash);
 
                 //close query with query text = "querytext" on datapoint dp_action
                 CustomFunction.PerformQueryAction("querytext", 1, false, false, dp_action, false, afp.CheckID, afp.CheckHash);
-
-
 
                 //make datapoint dp_action visible
                 if (dp_action != null && dp_action.Active)
@@ -125,17 +121,14 @@ namespace CustomFunctions
                 if (dp_action != null && dp_action.Active && dp_action.Data == string.Empty)
                     dp_action.IsVisible = false;
 
-
-
                 //derive data "TARGET_VALUE" in datapoint "dp_action"
                 if (dp_action != null && dp_action.Active && dp_action.Data != "TARGET_VALUE")
                     dp_action.Enter("TARGET_VALUE", string.Empty, 0);
 
-
                 //set calendar for insatnce current_ins based on target date dt_target and its target date
-                DateTime dt_target = (DateTime) dp_action.StandardValue();
+                DateTime dt_target = (DateTime)dp_action.StandardValue();
                 current_ins.SetTimeForward(dt_target, 0);
-                
+
             }
             catch
             {
