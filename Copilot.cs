@@ -5,7 +5,7 @@ using System.Collections;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Medidata.Core.Objects;
-using Medidata.EmailService;
+// using Medidata.EmailService;
 using Medidata.Core.Common;
 using Medidata.Core.Common.Utilities;
 using Medidata.Utilities;
@@ -50,7 +50,7 @@ namespace CustomFunctions
         static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            System.Windows.Forms.Application.Run(new MainForm());
+            // System.Windows.Forms.Application.Run(new MainForm());
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace CustomFunctions
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception exception = (Exception)e.ExceptionObject;
-            if (!CacheManager.IsThreadAbortException(exception)) System.Windows.Forms.MessageBox.Show(exception.ToString());
+            // if (!CacheManager.IsThreadAbortException(exception)) System.Windows.Forms.MessageBox.Show(exception.ToString());
         }
     }
     #endregion
