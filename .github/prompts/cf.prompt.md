@@ -1,14 +1,17 @@
 # Copilot Prompt
 
-This project is primarily focused on using the Medidata.Core.Objects namespace. When generating code, prioritize using types, methods, and classes from Medidata.Core.Objects and System. Avoid using other namespaces unless absolutely necessary. Example usages can be found in .cf/Basic Function.cs and .cf/Public Function.cs in the cf directory.
+**Important:**
+- All code suggestions must use only types, methods, and classes from the `Medidata.Core.Objects` namespace and the `System` namespace.
+- Do not use any other namespaces, libraries, or APIs unless absolutely required and not available in `Medidata.Core.Objects` or `System`.
+- Avoid suggesting code from unrelated, external, or third-party libraries.
+- For reference, see `.cf/Basic Function.cs` and `.cf/Public Function.cs` in the `cf` directory for example usage.
 
 ## Variable Naming Convention
 - For local variables, use the following prefixes with underscores and the relevant identifier (folder, form, or field OID) for clarity:
   - Instance: ins_<identifier> (e.g., ins_FOLDER_OID)
   - DataPage: dp_<identifier> (e.g., dp_FORM_OID)
-  - Record: rec_<identifier> (e.g., rec_FORM_OID)
   - DataPoint: dpt_<identifier> (e.g., dpt_FIELD_OID)
-- Use PascalCase for class names, method names, and public properties (e.g., MyClass, MyMethod).
+- Use PascalCase for class names, method names, and public properties (e.g. ValidateDatapoint, FecthMaxDate).
 - Use ALL_CAPS with underscores for constants (e.g., MAX_COUNT).
 - Variable names should be descriptive and avoid abbreviations unless they are standard or widely understood.
 - Do not use single-letter variable names except for loop counters.
@@ -16,9 +19,8 @@ This project is primarily focused on using the Medidata.Core.Objects namespace. 
 ### Examples
 - For an Instance object representing a folder OID, use: `ins_FOLDER_OID`
 - For a DataPage object for a form OID, use: `dp_FORM_OID`
-- For a Record object for a form OID, use: `rec_FORM_OID`
+- For a DataPoints collection, use: `dpts_FIELD_OID`
 - For a DataPoint representing a field OID, use: `dpt_FIELD_OID`
-- For a DataPoints collection, use: `dataPoints`
 - For a constant maximum count, use: `MAX_COUNT`
 
 ## Data Structure Clarification
@@ -36,70 +38,50 @@ This project is primarily focused on using the Medidata.Core.Objects namespace. 
 - Use FindByFieldOID and FetchAllDataPointsForOIDPath for efficient data access.
 - Use comments and XML documentation to clarify function purpose and logic.
 
-## Frequently Used Methods
-- `CustomFunction.FetchAllDataPointsForOIDPath(fieldOID, formOID, instance, subject)`: Fetches all DataPoints for a given field and form within a subject.
-- `CustomFunction.PerformQueryAction(record, fieldOID, queryText)`: Opens a query on a specific DataPoint.
-- `DataPoints.FindByFieldOID(fieldOID)`: Finds a DataPoint by its field OID within a record.
-
-## Query and Query Closure Conventions
-- Always use `CustomFunction.PerformQueryAction` to open queries.
-- Check if a query already exists before opening a new one, if required by business rules.
-- Use appropriate query text to clearly communicate the issue to the user.
-- To close a query, use the appropriate method provided by the API (e.g., `CustomFunction.CloseQueryAction`).
-
-## Coding and Dictionary Handling
-- Use the `Coding` or `StandardValue` property of a DataPoint to access coded values.
-- Use the `Data` property to get the display value (what the user sees in the CRF).
-- Always check for nulls before accessing coding information.
-
-## Performance Tips
-- Minimize loops over large collections; use targeted search methods.
-- Cache frequently accessed objects if possible within the function scope.
-
-## Security and Data Privacy
-- Do not log or expose sensitive subject data in error messages or queries.
-- Follow all applicable data privacy and security guidelines.
-
-## Sample Templates
-### Edit Check Template
-```csharp
-try {
-    ActionFunctionParams afp = (ActionFunctionParams) ThisObject;
-    DataPoint dpt_FIELD_OID = afp.ActionDataPoint;
-    // ...edit check logic...
-} catch (Exception ex) {
-    // Handle exception
-}
-```
-### Derivation Template
-```csharp
-try {
-    ActionFunctionParams afp = (ActionFunctionParams) ThisObject;
-    DataPoint dpt_FIELD_OID = afp.ActionDataPoint;
-    // ...derivation logic...
-    return derivedValue;
-} catch (Exception ex) {
-    // Handle exception
-    return null;
-}
-```
-
-## Error and Exception Handling
-- Use try/catch blocks in all custom functions.
-- Log or handle exceptions as appropriate for the environment.
-
-## Comments and Documentation
-- Use meaningful comments to explain logic and business rules.
-- Use XML documentation for public methods and classes.
-
-## Testing and Validation
-- Structure code to allow for easy testing and validation.
-- Use descriptive variable names and modularize logic for maintainability.
-
 ## Custom Function Input Convention
 - In all custom function programming, always define the input DataPoint using:
   `ActionFunctionParams afp = (ActionFunctionParams) ThisObject;`
 - This pattern should be used at the start of each function to access the input DataPoint and related context.
 
-## Query Action Convention
-- When you need to open or raise a query in code, always use the `CustomFunction.PerformQueryAction` method. Do not use any other method for opening queries.
+## Frequently Used Methods
+- `DataPoints.FindByFieldOID(fieldOID)`: Finds a DataPoint by its field OID within a record.
+- `CustomFunction.FetchAllDataPointsForOIDPath(string FieldOID, string FormOID, string FolderOID, Subject subject, bool activeOnly)` : Fetches all DataPoints for a given field and form within a subject.
+- `CustomFunction.PerformQueryAction(string QueryText, int MarkingGroupID, bool AnswerOnChange, bool CloseOnChange, DataPoint DataPoint, bool Condition, int CheckID, string CheckHash)`: Opens a query on a specific DataPoint.
+
+## Query and Query Closure Conventions
+- Always use `CustomFunction.PerformQueryAction(string QueryText, int MarkingGroupID, bool AnswerOnChange, bool CloseOnChange, DataPoint DataPoint, bool Condition, int CheckID, string CheckHash)` to open queries. Do not use any other method for opening queries.
+- Parameter clarification for `PerformQueryAction`:
+  - `QueryText`: The message to display to the user in the query.
+  - `MarkingGroupID`: Always use `1`.
+  - `AnswerOnChange`: Should default to `false` (do not require answer on change).
+  - `CloseOnChange`: Should default to `false` (do not auto-close on change).
+  - `DataPoint`: The target DataPoint to open the query on in the CRF page.
+  - `Condition`: Boolean, whether to open (`true`) or close (`false`) the query.
+  - `CheckID` and `CheckHash`: Always use the values provided in the function parameters (typically `afp.CheckID` and `afp.CheckHash`).
+- Check if a query already exists and not locked (!DataPoint.IsDataPointLocked) before opening a new one, if required by business rules.
+
+## Coding and Dictionary Handling
+- Use the `Data` or `StandardValue()` property of a DataPoint to access coded values.
+- Always check for nulls before accessing coding information.
+
+## Performance Tips
+- Minimize loops over large collections; use targeted search methods.
+- Use `DataPoints.FindByFieldOID` to quickly access specific DataPoints instead of iterating through all DataPoints.
+
+## Error and Exception Handling
+- Use try/catch blocks in all custom functions.
+
+### Sample Templates
+#### Edit Check Template
+```csharp
+try {
+    ActionFunctionParams afp = (ActionFunctionParams) ThisObject;
+    DataPoint dpt_action = afp.ActionDataPoint;
+    // ...edit check logic...
+} catch {}
+return null;
+```
+
+## Comments and Documentation
+- Use meaningful comments to explain logic and business rules.
+- Use XML documentation for public methods and classes.
