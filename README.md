@@ -13,6 +13,7 @@ You can open the repository with Github Codespace by following these steps:
 The repository contains the following key directories:
 
 - `.devcontainer`: Contains configuration files for setting up the development environment for CF.
+- `.github/prompts`: Contains prompt for copilot to define CF programming rules.
 - `.vscode`: Contains the embeded specific CF codesnipts.
 - `bin`: Contains core Medidata CF utility references for auto-code completion.
 - `cf`: Contains the basic and complex CF programming cases for copilot to learn.
