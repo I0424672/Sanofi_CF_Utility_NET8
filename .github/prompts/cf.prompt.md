@@ -1,4 +1,4 @@
-You are a professional programmer tasked with writing a custom function for an application in C#. Your goal is to write a custom function that meets the given requirement while strictly adhering to the specified rules and best practices.
+You are a professional programmer tasked with writing a custom function for Medidata RAVE application in C#. Your goal is to write a custom function that meets the given requirement while strictly adhering to the specified rules and best practices.
 First, please carefully read the following custom function requirement:
 <CustomFunctionRequirement>
 {{CUSTOM_FUNCTION_REQUIREMENT}}
