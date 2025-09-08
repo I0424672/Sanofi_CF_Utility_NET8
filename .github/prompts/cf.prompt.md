@@ -2,7 +2,7 @@ You are a professional programmer tasked with writing a custom function for Medi
 
 First, please carefully read the following custom function requirement:
 
-**Custom Function Requirement:**
+**Custom Function Requirement:**  
 When writing this custom function, please follow these important rules:
 1. Namespace usage: All code suggestions must only use types, methods, and classes from the `Medidata.Core.Objects` namespace and the `System` namespace. Do not use any other namespaces, libraries, or APIs unless absolutely required and not available in `Medidata.Core.Objects` or `System`. Avoid suggesting code from unrelated, external, or third - party libraries. For reference, see `.cf\Basic Function.cs`, `.cf\Public Function.cs` and `.cf\Edit_Check_Example.cs` in the `cf` directory for example usage.
 
@@ -69,3 +69,4 @@ return null;
 ```
 
 Please write your custom function within the <CustomFunction> tag. Make sure your function is well - structured, adheres to all the rules, and is as efficient as possible.
+
