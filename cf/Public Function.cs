@@ -21,7 +21,7 @@ namespace CustomFunctions
     using Medidata.Core.Objects.Coding;
     using Medidata.CustomFunctions.Debug;
     // using Mono.CSharp;
-    using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+    // using static System.Windows.Forms.VisualStyles.VisualStyleElement;
     public class BasicFunction
     {
         public static object Eval(object ThisObject)
@@ -416,3 +416,4 @@ namespace CustomFunctions
         }
     }
 }
+
