@@ -68,5 +68,6 @@ try {
 return null;
 ```
 
-Please write your custom function within the <CustomFunction> tag. Make sure your function is well - structured, adheres to all the rules, and is as efficient as possible.
+Please write your custom function following above all rules and best practices. Make sure your function is well - structured, adheres to all the rules, and is as efficient as possible.
+
 
