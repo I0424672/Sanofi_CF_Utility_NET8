@@ -1,4 +1,4 @@
-# Sanofi Template Utility for Medidata CF programming
+# Template Utility for Custom Function programming
 
 ## How to Use the Utility
 
